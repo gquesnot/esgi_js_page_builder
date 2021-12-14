@@ -7,27 +7,37 @@ export class PageBuilder{
         {
             name: "h1",
             options : undefined,
-            placeholder: "Saisir le titre principal/h1"
+            placeholder: "Saisir le titre principal/h1",
+            editable: true,
+
         },
         {
             name: "h2",
             options : undefined,
-            placeholder: "Saisir le titre niveau 2/h2"
+            placeholder: "Saisir le titre niveau 2/h2",
+            editable: true,
+
         },
         {
             name: "h3",
             options : undefined,
-            placeholder: "Saisir le titre niveau 3 / h3"
+            placeholder: "Saisir le titre niveau 3 / h3",
+            editable: true,
+
         },
         {
             name: "p",
             options : undefined,
-            placeholder: "Saisir le paragraphe de text"
+            placeholder: "Saisir le paragraphe de text",
+            editable: true,
+
         },
         {
             name: "hr",
             options : undefined,
-            placeholder: ""
+            placeholder: "",
+            editable: false,
+
         }
     ]
 
@@ -37,10 +47,9 @@ export class PageBuilder{
         this.btnExport = document.getElementById("export")
         this.popup = document.getElementById("popup")
 
-        for (const elementConfig of this.elementsConfig) {
-            console.log(elementConfig)
+        for (const elementConfig of this.elementsConfig)
             this.elements[elementConfig.name] = new HtmlElement(elementConfig,this.contentElem )
-        }
+
 
         this.btnExport.addEventListener("click", () => {this.exportHtml()})
         this.popup.addEventListener("dblclick", ()=>{this.popup.classList.add('hide')})
@@ -48,14 +57,16 @@ export class PageBuilder{
 
     exportHtml(){
         this.popup.innerHTML = ""
-        let resDiv = document.createElement("div")
         let resText  = ""
+        let resDiv = document.createElement("div")
+
         for (let child of this.contentElem.children) {
-            resText += `
-                                    <${child.tagName.toLowerCase()}>
-                        ${child.innerHTML}
-                    </${child.tagName.toLowerCase()}>
-            `
+            let tagName = child.tagName.toLowerCase()
+            resText += "<"+tagName+">\n"
+            if (this.elements[tagName].editable)
+                resText += child.innerHTML + "\n" +
+                    "</"  + tagName + ">\n"
+
         }
         resDiv.innerText = resText;
         this.popup.append(resDiv)

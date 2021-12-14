@@ -3,6 +3,7 @@ export class HtmlElement{
         this.name = config.name
         this.placeholder = config.placeholder
         this.options = config.options
+        this.editable = config.editable
         this.contentElem = contentElem
 
         this.button = document.getElementById(this.name)
@@ -13,8 +14,12 @@ export class HtmlElement{
 
     new(){
         let elem = document.createElement(this.name,this.options)
-        elem.innerHTML = this.placeholder
-        elem.contentEditable = true
+
+        if (this.editable)
+        {
+            elem.innerHTML = this.placeholder
+            elem.contentEditable = true
+        }
         this.contentElem.append(elem)
     }
 }
