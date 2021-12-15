@@ -1,5 +1,5 @@
-"use strict"
+"use strict";
 
-import {PageBuilder} from "./PageBuilder.js";
+import { PageBuilder } from './PageBuilder.js';
 
-let pageBuilder = new PageBuilder()
+const pageBuilder = new PageBuilder();
